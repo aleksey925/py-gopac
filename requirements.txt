@@ -1,0 +1,1 @@
+git+https://alex925@bitbucket.org/alex925/setuptools-golang-cli.git@master#egg=setuptools-golang-cli
