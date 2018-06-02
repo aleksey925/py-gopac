@@ -26,7 +26,7 @@ def find_shared_library():
 
 
 @lru_cache(maxsize=None)
-def find_proxy(pac_path: str, url: str, encoding=None):
+def find_proxy(pac_path: str, url: str, encoding=None) -> dict:
     """
     Вычисляет какой proxy необходимо использовать для переданного url
     :param pac_path: путь к pac фалу
