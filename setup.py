@@ -2,7 +2,7 @@ from setuptools import setup, Extension
 
 setup(
     name='gopac',
-    version='0.0.2',
+    version='0.0.3',
     url='',
     license='',
     author='Aleksey Petrunnik',
