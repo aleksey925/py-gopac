@@ -31,7 +31,9 @@ LOGGER = init_logger()
 
 
 def find_shared_library():
-    shared_library = os.listdir(EXTENSION_DIR)
+    shared_library = list(filter(
+        lambda i: not i.endswith('.py'), os.listdir(EXTENSION_DIR)
+    ))
     if len(shared_library) != 1:
         raise CliNotFound("CLI not found")
     return join(EXTENSION_DIR, shared_library[0])
