@@ -41,7 +41,7 @@ func buildJson(proxy map[string]*neturl.URL, error error) string {
 	return string(resultJson)
 }
 
-func init() {
+func initCliInterface() {
 	flag.Parse()
 
 	if *pacFile == "" && *url == "" {
@@ -51,6 +51,7 @@ func init() {
 }
 
 func main() {
+	initCliInterface()
 	result, err := gopacparser.FindProxy(*pacFile, *url)
 	fmt.Println(buildJson(result, err))
 }

@@ -1,8 +1,9 @@
-import os
-import sys
-import json
 import base64
+import json
+import logging
+import os
 import subprocess
+import sys
 from functools import lru_cache
 from locale import getdefaultlocale
 from os.path import dirname, abspath, join
@@ -12,9 +13,8 @@ import requests
 
 from gopac.exceptions import (
     CliNotFound, ErrorDecodeOutput, GoPacException, DownloadCancel,
-    DownloadPacFileException,
-    SavePacFileException)
-from gopac.logger import init_logger
+    DownloadPacFileException, SavePacFileException
+)
 
 __all__ = ['find_proxy', 'download_pac_file', 'terminate_download_pac_file']
 
@@ -27,7 +27,8 @@ SERVICE_INFO = {
     'pac_path': '',
     'terminate_download': False
 }
-LOGGER = init_logger()
+
+logger = logging.getLogger()
 
 
 def find_shared_library():
@@ -60,11 +61,11 @@ def download_pac_file(url: str) -> str:
             url, stream=True, timeout=15, hooks={'response': download_hook}
         )
     except DownloadCancel:
-        LOGGER.debug('Загрузка PAC файла отменена')
+        logger.debug('File PAC download cancelled')
         raise
     except Exception as e:
         raise DownloadPacFileException(
-            'Возникла ошибка при скачивании PAC файла', e
+            'Error when downloading a file PAC', e
         )
 
     try:
@@ -73,8 +74,8 @@ def download_pac_file(url: str) -> str:
             pac.write(response.content)
         return SERVICE_INFO['pac_path']
     except Exception as e:
-        message = 'Ошибка при сохрании скачанного файла'
-        LOGGER.error(message, exc_info=True)
+        message = 'Error in saving the downloaded pac file'
+        logger.exception(message)
         raise SavePacFileException(message, e)
 
 
@@ -100,20 +101,20 @@ def find_proxy(pac_file: str, url: str, encoding=None) -> dict:
         res = subprocess.check_output(cmd, shell=True).decode(encoding)
     except subprocess.CalledProcessError:
         raise ValueError(
-            'Переданы не корректные данные, не возможно выполнить '
-            'консольную команду'
+            'The data is not correct, it is not possible to perform a console '
+            'command'
         )
     except UnicodeError:
         raise ErrorDecodeOutput(
-            'Не удалось определить кодировку системной консоли и декодировать '
-            'результат работы внешней программы'
+            'It was not possible to determine the encoding of the system '
+            'console and decode the result of the external program'
         )
     except Exception as e:
-        raise GoPacException('Возникла непредвиденная ошибка', e)
+        raise GoPacException('Unexpected error', e)
 
     if res.startswith("marshal error"):
         raise GoPacException(
-            'Внешняя бибилиотека не смогла сформировать ответ'
+            'The external library was unable to form a response'
         )
     else:
         res = json.loads(res)

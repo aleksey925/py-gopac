@@ -3,25 +3,20 @@ class DownloadCancel(Exception):
 
 
 class GoPacException(Exception):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    pass
 
 
 class CliNotFound(GoPacException):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    pass
 
 
 class ErrorDecodeOutput(GoPacException):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    pass
 
 
 class DownloadPacFileException(GoPacException):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    pass
 
 
 class SavePacFileException(GoPacException):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    pass
