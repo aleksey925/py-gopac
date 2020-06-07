@@ -1,15 +1,15 @@
 from setuptools import setup, Extension
 
 setup(
-    name='gopac',
-    version='0.0.5',
-    url='https://bitbucket.org/alex925/gopac/src/master/',
+    name='pygopac',
+    version='0.1.0',
+    url='https://bitbucket.org/alex925/py-gopac/src/master/',
     author='Aleksey Petrunnik',
-    author_email='zzz_vvv.94@mail.ru',
+    author_email='petrunnik.a@mail.ru',
     description='',
     packages=['gopac'],
     install_requires=['requests>=2.18.4'],
-    setup_requires=['setuptools-golang-cli'],
+    setup_requires=['setuptools-golang-cli', 'wheel'],
     dependency_links=[
         'git+https://alex925@bitbucket.org/alex925/setuptools-golang-cli.git@master#egg=setuptools-golang-cli'
     ],

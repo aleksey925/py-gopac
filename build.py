@@ -9,7 +9,7 @@ import subprocess as sp
 from os.path import split
 
 EXTENSION_PATH = './gopac/extension/'
-SUPPORTED_PYTHON = ('34', '35', '36', '37', '38')
+SUPPORTED_PYTHON = ('34', '35', '36', '37', '38', '39')
 
 
 def clean():

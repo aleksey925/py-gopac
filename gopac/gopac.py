@@ -37,7 +37,7 @@ def find_shared_library():
     ))
     if len(shared_library) != 1:
         raise CliNotFound("CLI not found")
-    return join(EXTENSION_DIR, shared_library[0])
+    return join(EXTENSION_DIR, shared_library[0]).replace(r' ', r'\ ')
 
 
 def get_pac_path(url):
@@ -93,9 +93,7 @@ def find_proxy(pac_file: str, url: str, encoding=None) -> dict:
     :return: словарь вида {'http': 'url:port', 'https': 'url:port'} или пустой
     словарь, если прокси не требуется
     """
-    cmd = ' '.join(
-        (find_shared_library(), f'-pacFile {pac_file}', f'-url {url}')
-    )
+    cmd = r'{} -pacFile "{}" {}'.format(find_shared_library(), pac_file, url)
     encoding = encoding if encoding else ENCODING
     try:
         res = subprocess.check_output(cmd, shell=True).decode(encoding)
