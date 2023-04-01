@@ -93,7 +93,7 @@ def find_proxy(pac_file: str, url: str, encoding=None) -> dict:
     :return: словарь вида {'http': 'url:port', 'https': 'url:port'} или пустой
     словарь, если прокси не требуется
     """
-    cmd = r'{} -pacFile "{}" {}'.format(find_shared_library(), pac_file, url)
+    cmd = r'{} -pacFile "{}" -url {}'.format(find_shared_library(), pac_file, url)
     encoding = encoding if encoding else ENCODING
     try:
         res = subprocess.check_output(cmd, shell=True).decode(encoding)
