@@ -1,26 +1,21 @@
 py-gopac
 ========
 
-Библиотека, вычисляющая прокси необходимый для доступа к заданному ресурсу.
+Simple library for parsing pac files.
 
-**Установка/сборка whl**
+## Examples
 
-Для сборки необходимо:
+Examples of usage you can find in `examples` folder.
 
-- python 3.x
-- golang (Для сборки достаточно установить и прописать в PATH путь к 
-компилятору. Если в консоли, команда `go version` выполняется успешно, значит
-все сделано правильно.)
-- доступ в интернет во время установки/сборки
+## Build wheel
 
-Для того, чтобы установить библиотеку необходимо выполнить команду:
+Required:
+
+- python
+- golang (The path to the executable file `go` should be in the PATH environment variable.
+  If the `go version` command is executed without errors, then everything is correctly configured.)
+- access to the internet
+
 ```
-python3 ./setup.py install
+make build
 ```
-Так же можно собрать whl под все актуальные версии python. Для этих целей в
-корне есть скрипт `build.py`.
-```
-python3 ./build.py
-```
-После завершения его работы в папке dist будут располагаться все собранные
-whl, а так же можно будет запустить примеры из папки examples.

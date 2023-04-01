@@ -95,6 +95,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
+.direnv/
 build/
 develop-eggs/
 dist/
@@ -185,3 +186,6 @@ ENV/
 
 # Logs
 log.*
+
+## Project
+.envrc
