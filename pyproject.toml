@@ -1,0 +1,22 @@
+[project]
+name = "py-gopac"
+version = "0.0.2"
+description = "Simple library for parsing pac files."
+authors = [{name = "Aleksey Petrunnik", email = "petrunnik.a@gmail.com"}]
+license = {text = "MIT"}
+requires-python = ">=3.8, <3.12"
+dependencies = [
+    "requests>=2.18.4",
+]
+
+[project.urls]
+homepage = "https://github.com/aleksey925/py-gopac"
+repository = "https://github.com/aleksey925/py-gopac"
+
+[build-system]
+requires = [
+    "setuptools>=61.0.0",
+    "setuptools-golang-cli @ git+https://github.com/aleksey925/setuptools-golang-cli.git@0.0.3",
+    "wheel",
+]
+build-backend = "setuptools.build_meta"

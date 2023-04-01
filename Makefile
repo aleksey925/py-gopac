@@ -1,2 +1,2 @@
-build:
-	python ./setup.py bdist_wheel
+build-whl:
+	pip wheel --no-deps --wheel-dir ./dist .

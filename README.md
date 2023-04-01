@@ -17,5 +17,5 @@ Required:
 - access to the internet
 
 ```
-make build
+make build-whl
 ```
