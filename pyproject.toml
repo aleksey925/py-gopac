@@ -1,9 +1,20 @@
 [project]
-name = "py-gopac"
-version = "0.0.2"
-description = "Simple library for parsing pac files."
+name = "pygopac"
+version = "0.2.0"
+description = "A simple library for working with pac files."
 authors = [{name = "Aleksey Petrunnik", email = "petrunnik.a@gmail.com"}]
 license = {text = "MIT"}
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Software Development",
+    "Intended Audience :: Developers",
+]
 requires-python = ">=3.8, <3.12"
 dependencies = [
     "requests>=2.18.4",
