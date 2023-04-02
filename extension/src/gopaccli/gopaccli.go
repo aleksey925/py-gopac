@@ -1,7 +1,7 @@
 package main
 
 import (
-	"bitbucket.org/alex925/gopacparser"
+	"github.com/aleksey925/gopacparser"
 	"encoding/json"
 	"flag"
 	"fmt"
