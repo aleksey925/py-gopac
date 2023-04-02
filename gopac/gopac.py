@@ -46,9 +46,9 @@ def get_pac_path(url):
 
 def download_pac_file(url: str) -> str:
     """
-    Скачивает PAC файл во временную папку
-    :param url: путь к файлу
-    :return: путь к скачанному PAC файлу
+    Downloads pac file to temporary directory
+    :param url: url to pac file
+    :return: path to downloaded file
     """
     def download_hook(*args, **kwargs):
         if SERVICE_INFO['terminate_download']:
@@ -86,12 +86,12 @@ def terminate_download_pac_file():
 @lru_cache(maxsize=None)
 def find_proxy(pac_file: str, url: str, encoding=None) -> dict:
     """
-    Вычисляет какой proxy необходимо использовать для переданного url
-    :param pac_file: путь к pac фалу или URL
-    :param url: ссылка на сайт
-    :param encoding: кодировка консоли
-    :return: словарь вида {'http': 'url:port', 'https': 'url:port'} или пустой
-    словарь, если прокси не требуется
+    Finds a proxy for a URL
+    :param pac_file: path to downloaded file
+    :param url: target url
+    :param encoding: system console encoding
+    :return: dict like this {'http': 'url:port', 'https': 'url:port'} or
+    an empty dict if no proxy is needed
     """
     cmd = r'{} -pacFile "{}" -url {}'.format(find_shared_library(), pac_file, url)
     encoding = encoding if encoding else ENCODING
