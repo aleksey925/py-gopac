@@ -1,6 +1,6 @@
 [project]
 name = "pygopac"
-version = "0.2.0"
+version = "0.3.0"
 description = "A simple library for working with pac files."
 authors = [{name = "Aleksey Petrunnik", email = "petrunnik.a@gmail.com"}]
 license = {text = "MIT"}
