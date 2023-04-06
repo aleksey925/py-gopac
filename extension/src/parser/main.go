@@ -1,16 +1,13 @@
 package main
 
+import "C"
+
 import (
 	"github.com/aleksey925/gopacparser"
 	"encoding/json"
-	"flag"
-	"fmt"
 	neturl "net/url"
-	"os"
 )
 
-var pacFile = flag.String("pacFile", "", "Path to PAC file")
-var url = flag.String("url", "", "URL of the requested site")
 
 type Result struct {
 	Proxy map[string]string
@@ -41,17 +38,11 @@ func buildJson(proxy map[string]*neturl.URL, error error) string {
 	return string(resultJson)
 }
 
-func initCliInterface() {
-	flag.Parse()
-
-	if *pacFile == "" && *url == "" {
-		flag.PrintDefaults()
-		os.Exit(1)
-	}
+//export ParseFile
+func ParseFile(path string, url string) *C.char {
+    proxies, err := gopacparser.FindProxy(path, url)
+    result := buildJson(proxies, err)
+	return C.CString(result)
 }
 
-func main() {
-	initCliInterface()
-	result, err := gopacparser.FindProxy(*pacFile, *url)
-	fmt.Println(buildJson(result, err))
-}
+func main() {}

@@ -1,5 +1,5 @@
-py-gopac
-========
+pygopac
+=======
 
 A simple library for working with pac files.
 
@@ -20,7 +20,7 @@ Requirements:
 
 - python
 - pdm (optional)
-- golang (The path to the executable file `go` should be in the PATH environment variable.
+- golang >= 1.20 (The path to the executable file `go` should be in the PATH environment variable.
   If the `go version` command is executed without errors, then everything is correctly configured.)
 - access to the internet
 

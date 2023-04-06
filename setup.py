@@ -5,9 +5,9 @@ setup(
     packages=['gopac'],
     ext_modules=[
         Extension(
-            'gopac.extension.gopaccli',
-            ['extension/src/gopaccli/gopaccli.go']
+            'gopac.extension.parser',
+            ['extension/src/parser/main.go']
         ),
     ],
-    build_golang_cli={'root': 'extension'},
+    build_golang={'root': 'extension'},
 )
