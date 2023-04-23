@@ -8,10 +8,9 @@ from tempfile import gettempdir
 import requests
 
 from gopac.exceptions import SharedLibraryNotFound, DownloadCancel, GoPacException
+from gopac.structures import GoStr
 
 __all__ = ['find_proxy', 'download_pac_file', 'terminate_download_pac_file']
-
-from gopac.structures import GoStr
 
 logger = logging.getLogger()
 extension_dir = Path(__file__).parent.absolute() / 'extension'
@@ -29,7 +28,8 @@ def find_shared_library() -> Path:
 
 lib = ctypes.cdll.LoadLibrary(str(find_shared_library()))
 lib.ParseFile.argtypes = [GoStr, GoStr]
-lib.ParseFile.restype = ctypes.c_char_p
+lib.ParseFile.restype = ctypes.POINTER(ctypes.c_char_p)
+lib.FreePointer.argtypes = [ctypes.POINTER(ctypes.c_char_p)]
 
 
 def get_pac_path(url):
@@ -77,8 +77,10 @@ def find_proxy(pac_file: str, url: str) -> dict[str, str]:
     :return: dict like this {'http': 'url:port', 'https': 'url:port'} or
     an empty dict if no proxy is needed
     """
-    data: str = lib.ParseFile(pac_file, url).decode()
-    result = json.loads(data)
+    result_pointer: ctypes.POINTER(ctypes.c_char_p) = lib.ParseFile(pac_file, url)
+    value: bytes = ctypes.c_char_p.from_buffer(result_pointer).value
+    result = json.loads(value.decode())
+    lib.FreePointer(result_pointer)
     if result['Error']:
         raise GoPacException(result['Error'])
 

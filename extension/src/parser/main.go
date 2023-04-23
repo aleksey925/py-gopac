@@ -1,11 +1,13 @@
 package main
 
+// #include <stdlib.h>
 import "C"
 
 import (
 	"github.com/aleksey925/gopacparser"
 	"encoding/json"
 	neturl "net/url"
+	"unsafe"
 )
 
 
@@ -43,6 +45,11 @@ func ParseFile(path string, url string) *C.char {
     proxies, err := gopacparser.FindProxy(path, url)
     result := buildJson(proxies, err)
 	return C.CString(result)
+}
+
+//export FreePointer
+func FreePointer(pointer *C.char) {
+    C.free(unsafe.Pointer(pointer))
 }
 
 func main() {}
