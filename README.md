@@ -33,5 +33,5 @@ make build-whl
 Build with pip:
 
 ```
-make pip-build-whl
+make build-whl-pip
 ```

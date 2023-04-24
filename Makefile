@@ -1,5 +1,5 @@
 build-whl:
 	pdm build
 
-pip-build-whl:
+build-whl-pip:
 	pip wheel --no-deps --wheel-dir ./dist .

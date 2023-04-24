@@ -17,19 +17,27 @@ extension_dir = Path(__file__).parent.absolute() / 'extension'
 _downloader_state = {'terminate_download': False}
 
 
-def find_shared_library() -> Path:
-    shared_library = list(filter(
-        lambda i: not i.name.endswith('.py') and i.name != '__pycache__', extension_dir.iterdir()
-    ))
-    if len(shared_library) != 1:
+def get_shared_library() -> Path:
+    list_path = list(
+        filter(
+            lambda i: i.name.startswith('parser.') and not i.name.endswith('.h'),
+            extension_dir.iterdir()
+        )
+    )
+    if len(list_path) != 1:
         raise SharedLibraryNotFound()
-    return shared_library[0]
+    return list_path[0]
 
 
-lib = ctypes.cdll.LoadLibrary(str(find_shared_library()))
-lib.ParseFile.argtypes = [GoStr, GoStr]
-lib.ParseFile.restype = ctypes.POINTER(ctypes.c_char_p)
-lib.FreePointer.argtypes = [ctypes.POINTER(ctypes.c_char_p)]
+def load_shared_lib(path: Path) -> ctypes.cdll.LoadLibrary:
+    library = ctypes.cdll.LoadLibrary(str(path))
+    library.ParseFile.argtypes = [GoStr, GoStr]
+    library.ParseFile.restype = ctypes.POINTER(ctypes.c_char_p)
+    library.FreePointer.argtypes = [ctypes.POINTER(ctypes.c_char_p)]
+    return library
+
+
+lib = load_shared_lib(get_shared_library())
 
 
 def get_pac_path(url):
