@@ -24,14 +24,14 @@ Requirements:
   If the `go version` command is executed without errors, then everything is correctly configured.)
 - access to the internet
 
-Build with dpm:
+Build dist with pdm:
 
 ```
-make build-whl
+make build-dist-by-pdm
 ```
 
-Build with pip:
+Build dist using standard tools:
 
 ```
-make build-whl-pip
+make build-dist
 ```
