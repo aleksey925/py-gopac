@@ -183,6 +183,7 @@ ENV/
 # Bin files
 *.so
 *.dll
+*.h
 
 # Logs
 log.*
