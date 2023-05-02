@@ -10,3 +10,6 @@ build-dist:
 build-extension:
 	cd extension/src/parser/ && \
 	go build -buildmode=c-shared -o ../../../gopac/extension/parser.so main.go
+
+lint:
+	pre-commit run --all

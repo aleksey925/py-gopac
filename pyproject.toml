@@ -1,6 +1,6 @@
 [project]
 name = "pygopac"
-version = "0.4.0"
+version = "0.5.0"
 description = "A simple library for working with pac files."
 authors = [{name = "Aleksey Petrunnik", email = "petrunnik.a@gmail.com"}]
 license = {text = "MIT"}
@@ -20,6 +20,14 @@ dependencies = [
     "requests>=2.18.4",
 ]
 
+[tool.pdm]
+[tool.pdm.dev-dependencies]
+dev = [
+    "pre-commit>=3.3.1",
+    "mypy>=1.2.0",
+    "types-requests>=2.29.0.0",
+]
+
 [project.urls]
 homepage = "https://github.com/aleksey925/py-gopac"
 repository = "https://github.com/aleksey925/py-gopac"
@@ -31,3 +39,16 @@ requires = [
     "wheel",
 ]
 build-backend = "setuptools.build_meta"
+
+[tool.black]
+target_version = ['py38']
+line-length = 100
+skip_string_normalization = true
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+python_version = "3.8"
+disallow_any_generics = true
+disallow_untyped_defs = true
