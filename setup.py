@@ -1,8 +1,9 @@
-from setuptools import setup, Extension
+from setuptools import setup, Extension, find_packages
 
 setup(
     # See pyproject.toml for most of the config metadata
-    packages=['gopac'],
+    packages=['extension', *find_packages()],
+    package_data={'extension': ['src/parser/*']},
     ext_modules=[
         Extension(
             'gopac.extension.parser',
