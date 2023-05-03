@@ -1,5 +1,6 @@
 build-dist:
 	find . -maxdepth 1 -type d -name '*.egg-info' -print0 | xargs -0 rm -r && \
+	python setup.py clean --all && \
 	python -m build . --sdist && \
 	pip wheel --no-deps --wheel-dir ./dist .
 
