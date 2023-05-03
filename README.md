@@ -19,16 +19,9 @@ You can find other usage examples in the "examples" folder.
 Requirements:
 
 - python
-- pdm (optional)
 - golang >= 1.20 (The path to the executable file `go` should be in the PATH environment variable.
   If the `go version` command is executed without errors, then everything is correctly configured.)
 - access to the internet
-
-Build dist with pdm:
-
-```
-make build-dist-by-pdm
-```
 
 Build dist using standard tools:
 

@@ -1,7 +1,3 @@
-build-dist-by-pdm:
-	find . -maxdepth 1 -type d -name '*.egg-info' -print0 | xargs -0 rm -r && \
-	pdm build
-
 build-dist:
 	find . -maxdepth 1 -type d -name '*.egg-info' -print0 | xargs -0 rm -r && \
 	python -m build . --sdist && \
@@ -13,3 +9,8 @@ build-extension:
 
 lint:
 	pre-commit run --all
+
+_test:
+	pytest --cov="gopac" .
+
+test: | build-extension _test
