@@ -5,8 +5,7 @@ import logging
 import typing as t
 from pathlib import Path
 from tempfile import gettempdir
-
-import requests
+from urllib.request import urlretrieve
 
 from gopac.exceptions import DownloadCancel, GoPacException, SharedLibraryNotFound
 from gopac.structures import GoStr
@@ -47,30 +46,34 @@ def get_pac_path(url: str) -> Path:
 
 def download_pac_file(url: str, path: t.Union[Path, None] = None) -> Path:
     """
-    Downloads pac file to temporary directory
+    Downloads pac file
     :param url: url to pac file
     :param path: path to the location where the downloaded file will be saved.
     Will be saved to a temporary directory by default.
     :return: path to downloaded file
     """
 
-    def download_hook(*args: t.Any, **kwargs: t.Any) -> None:
-        if _downloader_state['terminate_download']:
+    def download_hook(count: int, block_size: int, total_size: int) -> None:
+        if get_terminate_download_flag():
             raise DownloadCancel()
 
-    _downloader_state['terminate_download'] = False
-
+    path = path or get_pac_path(url)
+    reset_download_state()
     try:
-        response = requests.get(url, stream=True, timeout=15, hooks={'response': download_hook})
+        urlretrieve(url, path, reporthook=download_hook)
     except DownloadCancel:
         logger.debug('File PAC download cancelled')
         raise
 
-    path = path or get_pac_path(url)
-    with open(path, mode='wb') as pac:
-        pac.write(response.content)
-
     return path
+
+
+def get_terminate_download_flag() -> bool:
+    return _downloader_state['terminate_download']
+
+
+def reset_download_state() -> None:
+    _downloader_state['terminate_download'] = False
 
 
 def terminate_download_pac_file() -> None:
